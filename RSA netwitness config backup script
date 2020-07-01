@@ -8,18 +8,22 @@ os.mkdir(new_backup_file_name)
 os.chdir(f'./{new_backup_file_name}')
 
 #backup process
-backup_cmd = f'echo Login@123 | sudo nw-recovery-tool --export --dump-dir ./ --category AdminServer'
+
+#change the credentials detail
+backup_cmd = f'echo $password$ | sudo nw-recovery-tool --export --dump-dir ./ --category AdminServer'
+
 os.system(backup_cmd)
 parent_dir_cmd = 'cd ..'
 os.system(parent_dir_cmd)
-"""
+
 #moving the backup file to remort host
-file_share_cmd = f'echo Welcome@12 | sudo scp -rf ./{new_backup_file_name} root@10.54.2.7:/NWBACKUP2020/'
+#provide remote backup server IP and path
+file_share_cmd = sudo scp -rf ./{new_backup_file_name} root@10.0.0.1:/NWBACKUP2020/'
 os.system(file_share_cmd)
 
 #delete the backup file
 delete_Backup_cmd = f'rm -rf ./{new_backup_file_name}'
 os.system(delete_Backup_cmd)
-"""
+
 #Schedule using crontab, add the following entry in crontab.
 #* * * * 6 python3.7 /NW-Backup/auto-backup.py
